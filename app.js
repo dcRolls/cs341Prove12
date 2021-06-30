@@ -44,13 +44,15 @@ io.on('connection', socket => {
            }
         })
         .on('newUser', (username, time) => {
-            // A new user logs in.                  
-            const message = `${username} has logged on.`;
-            socket.broadcast.emit('newMessage', {
-               sender: "admin",
-               time: time,
-               message: message
-            });
+            // A new user logs in.    
+            if (username) {              
+                const message = `${username} has logged on.`;
+                socket.broadcast.emit('newMessage', {
+                sender: "admin",
+                time: time,
+                message: message
+                });
+            }
         })
         .on('message', data => {
             // Receive a new message            
